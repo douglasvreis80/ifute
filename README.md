@@ -1,4 +1,4 @@
-# Footy Friends
+# iFute
 
 Plataforma para organizar peladas entre amigos com controle de convocações (mensalistas) e vagas para avulsos. O MVP usa FastAPI + SQLite no backend e React + Vite no frontend.
 
