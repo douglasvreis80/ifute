@@ -1,0 +1,63 @@
+# ----------------------------------------
+# Arquivos sensíveis e variáveis de ambiente
+# ----------------------------------------
+.env
+*.env
+*.secret
+
+# ----------------------------------------
+# Logs e temporários
+# ----------------------------------------
+*.log
+*.pid
+*.seed
+*.pid.lock
+*.pyc
+*.pyo
+__pycache__/
+*.DS_Store
+Thumbs.db
+
+# ----------------------------------------
+# Backend (FastAPI / Python)
+# ----------------------------------------
+/backend/__pycache__/
+/backend/*.pyc
+/backend/.pytest_cache/
+/backend/.mypy_cache/
+/backend/.ruff_cache/
+/backend/.coverage
+/backend/.venv/
+/backend/venv/
+/backend/data/        # banco sqlite local
+/backend/uploads/     # uploads locais
+
+# ----------------------------------------
+# Frontend (Angular)
+# ----------------------------------------
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.angular/cache/
+/frontend/.env
+/frontend/.env.*
+
+# ----------------------------------------
+# Docker
+# ----------------------------------------
+/uploads/             # volume de uploads
+/docker-compose.override.yml
+/docker-compose.dev.yml
+
+# ----------------------------------------
+# Nginx
+# ----------------------------------------
+/nginx/certs/
+/nginx/*.log
+
+# ----------------------------------------
+# IDEs
+# ----------------------------------------
+.vscode/
+/.idea/
+/*.swp
+

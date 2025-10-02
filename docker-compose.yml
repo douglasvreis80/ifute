@@ -1,0 +1,62 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    expose:
+      - "8000"
+    volumes:
+      - ./backend/data:/app/data
+      - uploads:/app/uploads
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - TOKEN_EXPIRE_MINUTES=${TOKEN_EXPIRE_MINUTES}
+      - ADMIN_DEFAULT_USER=${ADMIN_DEFAULT_USER}
+      - DEFAULT_CONVOCATION_DEADLINE_HOURS=${DEFAULT_CONVOCATION_DEADLINE_HOURS}
+      - FRONTEND_ORIGIN=${FRONTEND_ORIGIN}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS}
+      - FRONTEND_BASE_URL=${FRONTEND_BASE_URL}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - SMTP_STARTTLS=${SMTP_STARTTLS}
+      - EMAIL_FROM=${EMAIL_FROM}
+      - INVITATION_EXPIRE_HOURS=${INVITATION_EXPIRE_HOURS}
+    networks:
+      - ifute_net
+
+  frontend:
+    build:
+      context: ./frontend
+    expose:
+      - "80"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL}
+    networks:
+      - ifute_net
+
+  nginx:
+    image: nginx:alpine
+    container_name: ifute-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - ifute_net
+
+volumes:
+  uploads:
+
+networks:
+  ifute_net:
+    driver: bridge
